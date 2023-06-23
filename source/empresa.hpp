@@ -21,6 +21,10 @@ private:
     vector<Vendedor> vendedores;
     vector<Gerente> gerentes;
 
+    void atualizaAsgs();
+    void atualizaGerente();
+    void atualizaVendedor();
+
 public:
     // Construtor vazio
     Empresa() {}
@@ -58,6 +62,7 @@ public:
     void calculaSalarioFuncionario(string matricula);
     void calculaTodoOsSalarios();
     void calcularRecisao(string matricula, Data desligamento);
+    void demitirFuncionario(string matricula, Data desligamento);
 };
 
 #endif

@@ -12,8 +12,9 @@ buscaFuncionario()
 calculaSalarioFuncionario()
 72.412-3
 calculaTodoOsSalarios()
-calcularRecisao()
-72.385-9
-2023
-5
-12
+demitirFuncionario()
+72.123-7
+2020
+08
+10
+contratarFuncionario()

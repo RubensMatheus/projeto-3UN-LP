@@ -77,16 +77,26 @@ void Empresa::carregaFuncoes() {
         else if (vetor[i] == "buscaFuncionario()") { buscaFuncionario(vetor[i+1]); }
         else if (vetor[i] == "calculaSalarioFuncionario()") { calculaSalarioFuncionario(vetor[i+1]); }
         else if (vetor[i] == "calculaTodoOsSalarios()") { calculaTodoOsSalarios(); }
-        else if (vetor[i] == "calcularRecisao()") { 
+       /* else if (vetor[i] == "calcularRecisao()") { 
             Data temp;
             temp.ano = stoi(vetor[i+2]);
             temp.mes = stoi(vetor[i+3]);
             temp.dia = stoi(vetor[i+4]);
-            calcularRecisao(vetor[i+1], temp); }
+            calcularRecisao(vetor[i+1], temp); }*/
+    else if(vetor[i] == "demitirFuncionario()") {
+        string matricula = vetor[i+1];
+        Data temp;
+        temp.ano = stoi(vetor[i+2]);
+        temp.mes = stoi(vetor[i+3]);
+        temp.dia = stoi(vetor[i+4]);
+        demitirFuncionario(matricula, temp);
+    }
+    else if(vetor[i] == "contratarFuncionario()") {cout << "chegou aqui";}
     }
     } catch (const std::exception& e) {
         std::cout << "Ocorreu uma exceção: " << e.what() << std::endl;
     }
+
 }
 
 void Empresa::carregarEmpresa() {
@@ -553,23 +563,35 @@ void Empresa::buscaFuncionario(string matricula) {
 }
 
 void Empresa::calculaSalarioFuncionario(string matricula){
+
+    cout << "\n######################## Calcular Salário ########################\n";
+    int count = 0;
     for (auto asg : asgs){
         if (asg.getMatricula() == matricula){
             cout << "O Salario final do asg " << asg.getNome() << " é " << asg.calcularSalario() << endl;
+            ++count;
         }
     }
 
+    if(!count) {
     for (auto vendedor : vendedores){
         if (vendedor.getMatricula() == matricula){
             cout << "O Salario final do vendedor " << vendedor.getNome() << " é " << vendedor.calcularSalario() << endl;
+            ++count;
         }
     }
+    }
 
+    if(!count) {
     for (auto gerente : gerentes){
         if (gerente.getMatricula() == matricula){
             cout << "O Salario final do gerente " << gerente.getNome() << " é " << gerente.calcularSalario() << endl;
+            ++count;
         }
     }
+    }
+
+    if (count == 0) { cout << "Funcionário não encontrado no sistema\n"; }
 }
 
 void Empresa::calculaTodoOsSalarios() {
@@ -579,6 +601,8 @@ void Empresa::calculaTodoOsSalarios() {
 
     fstream salarios;
     salarios.open("salarios.txt", ios::out );
+
+    cout << "\n\n######################## Calcular todos os salários ########################\n";
 
     for (auto asg : asgs){
         salarios << "#########################################################" << endl;
@@ -656,6 +680,9 @@ void Empresa::calculaTodoOsSalarios() {
 
 void Empresa::calcularRecisao(string matricula, Data desligamento) {
     int count = 0;
+
+    cout << "######################## Calcular Recisão ########################\n";
+
     for (auto asg : asgs){
         if (asg.getMatricula() == matricula){
             ++count;
@@ -663,19 +690,247 @@ void Empresa::calcularRecisao(string matricula, Data desligamento) {
         }
     }
 
+    if(!count) {
     for (auto vendedor : vendedores){
         if (vendedor.getMatricula() == matricula){
             ++count;
             cout << "A recisao do vendedor " << vendedor.getNome() << " é " << vendedor.calcularRecisao(desligamento) << endl;
         }
     }
+    }
 
+    if(!count) {
     for (auto gerente : gerentes){
         if (gerente.getMatricula() == matricula){
             ++count;
             cout << "A recisao do gerente " << gerente.getNome() << " é " << gerente.calcularRecisao(desligamento) << endl;
         }
     }
+    }
 
     if (count == 0) { cout << "Funcionário não encontrado no sistema\n"; }
+}
+
+void Empresa::atualizaAsgs() {
+    fstream arquivo;
+    arquivo.open("leitura/asg.txt", ios::out); //Apaga o arquivo original
+    int i = 0;
+
+    std::string linha;
+    for (auto &asg : asgs) {
+        // Grava cada atributo do ASG no arquivo , formatado da maneira que você precisa
+       arquivo << "#########################################################\n"
+                << "ASG Nº: " << i << "\n"
+                << "##### DADOS PESSOAIS #####\n"
+                << asg.getNome() << "\n"
+                << asg.getCPF() << "\n"
+                << asg.getQtdFilhos() << "\n"
+                << asg.getEstadoCivil() << "\n"
+                << "***** Endereço (cidade, cep, bairro, rua e numero) ****\n"
+                << asg.getEnderecoPessoal().cidade << "\n"
+                << asg.getEnderecoPessoal().cep << "\n"
+                << asg.getEnderecoPessoal().bairro << "\n"
+                << asg.getEnderecoPessoal().rua << "\n"
+                << asg.getEnderecoPessoal().numero << "\n"
+                << "***** Data de nascimento (ano, mes, dia) ****\n"
+                << asg.getDataNascimento().ano << "\n"
+                << asg.getDataNascimento().mes << "\n"
+                << asg.getDataNascimento().dia << "\n"
+                << "##### DADOS FUNCIONAIS #####\n"
+                << asg.getMatricula() << "\n"
+                << asg.getSalario() << "\n"
+                << asg.getAdicionalInsalubridade() << "\n"
+                << asg.getDiasFaltas() << "\n"   // incluído quantidade de faltas
+                << "***** Data de ingresso (ano, mes, dia) ****\n"
+                << asg.getIngressoEmpresa().ano << "\n"
+                << asg.getIngressoEmpresa().mes << "\n"
+                << asg.getIngressoEmpresa().dia << "\n";
+                ++i;
+    }
+    arquivo.close();
+}
+
+void Empresa::atualizaGerente() {
+    fstream arquivo;
+    arquivo.open("leitura/gerente.txt", ios::out); //Apaga o arquivo original
+    int i = 0;
+
+    std::string linha;
+    for (auto &gerente : gerentes) {
+        // Grava cada atributo do Gerente no arquivo , formatado da maneira que você precisa
+       arquivo << "#########################################################\n"
+                << "GERENTE Nº: " << i << "\n"
+                << "##### DADOS PESSOAIS #####\n"
+                << gerente.getNome() << "\n"
+                << gerente.getCPF() << "\n"
+                << gerente.getQtdFilhos() << "\n"
+                << gerente.getEstadoCivil() << "\n"
+                << "***** Endereço (cidade, cep, bairro, rua e numero) ****\n"
+                << gerente.getEnderecoPessoal().cidade << "\n"
+                << gerente.getEnderecoPessoal().cep << "\n"
+                << gerente.getEnderecoPessoal().bairro << "\n"
+                << gerente.getEnderecoPessoal().rua << "\n"
+                << gerente.getEnderecoPessoal().numero << "\n"
+                << "***** Data de nascimento (ano, mes, dia) ****\n"
+                << gerente.getDataNascimento().ano << "\n"
+                << gerente.getDataNascimento().mes << "\n"
+                << gerente.getDataNascimento().dia << "\n"
+                << "##### DADOS FUNCIONAIS #####\n"
+                << gerente.getMatricula() << "\n"
+                << gerente.getSalario() << "\n"
+                << gerente.getParticipacaoLucros() << "\n"
+                << gerente.getDiasFaltas() << "\n"   // incluído quantidade de faltas
+                << "***** Data de ingresso (ano, mes, dia) ****\n"
+                << gerente.getIngressoEmpresa().ano << "\n"
+                << gerente.getIngressoEmpresa().mes << "\n"
+                << gerente.getIngressoEmpresa().dia << "\n";
+                ++i;
+    }
+    arquivo.close();
+}
+
+void Empresa::atualizaVendedor() {
+    fstream arquivo;
+    arquivo.open("leitura/vendedor.txt", ios::out); //Apaga o arquivo original
+    int i = 0;
+
+    std::string linha;
+    for (auto &vendedor : vendedores) {
+        // Grava cada atributo do Vendedor no arquivo , formatado da maneira que você precisa
+       arquivo << "#########################################################\n"
+                << "VENDEDOR Nº: " << i << "\n"
+                << "##### DADOS PESSOAIS #####\n"
+                << vendedor.getNome() << "\n"
+                << vendedor.getCPF() << "\n"
+                << vendedor.getQtdFilhos() << "\n"
+                << vendedor.getEstadoCivil() << "\n"
+                << "***** Endereço (cidade, cep, bairro, rua e numero) ****\n"
+                << vendedor.getEnderecoPessoal().cidade << "\n"
+                << vendedor.getEnderecoPessoal().cep << "\n"
+                << vendedor.getEnderecoPessoal().bairro << "\n"
+                << vendedor.getEnderecoPessoal().rua << "\n"
+                << vendedor.getEnderecoPessoal().numero << "\n"
+                << "***** Data de nascimento (ano, mes, dia) ****\n"
+                << vendedor.getDataNascimento().ano << "\n"
+                << vendedor.getDataNascimento().mes << "\n"
+                << vendedor.getDataNascimento().dia << "\n"
+                << "##### DADOS FUNCIONAIS #####\n"
+                << vendedor.getMatricula() << "\n"
+                << vendedor.getSalario() << "\n"
+                << vendedor.getTipoVendedor() << "\n"
+                << vendedor.getDiasFaltas() << "\n"   // incluído quantidade de faltas
+                << "***** Data de ingresso (ano, mes, dia) ****\n"
+                << vendedor.getIngressoEmpresa().ano << "\n"
+                << vendedor.getIngressoEmpresa().mes << "\n"
+                << vendedor.getIngressoEmpresa().dia << "\n";
+                ++i;
+    }
+    arquivo.close();
+}
+
+void Empresa::demitirFuncionario(string matricula, Data desligamento) {
+    fstream relatorio;
+    relatorio.open("relatorioDemissional.txt", ios::out );
+
+    int count = 0;
+    for (auto it = asgs.begin(); it != asgs.end(); ++it){
+        if (it->getMatricula() == matricula) {
+            float rescisao = it->calcularRecisao(desligamento);
+            // Salva os dados no arquivo relatorioDemissional
+            relatorio << "Cargo: Auxiliar de Serviços Gerais\n"
+                      << "Nome: " << it->getNome() << "\n"
+                      << "CPF: " << it->getCPF() << "\n"
+                      << "Matricula: " << it->getMatricula() << "\n"
+                      << "Data de Ingresso: " << it->getIngressoEmpresa().dia  << "/" << it->getIngressoEmpresa().mes << "/" << it->getIngressoEmpresa().ano << "\n"
+                      << "Data de Demissão: " << desligamento.dia  << "/" << desligamento.mes << "/" << desligamento.ano << "\n"
+                      << "Tempo trabalhado: " << "\n"
+                      << "Valor de rescisao: " << rescisao << "\n"
+                      << "#########################################################\n"; 
+
+            asgs.erase(it);
+
+            ++count;
+            break;
+        }
+    }
+
+    if(!count) {
+    for (auto it = vendedores.begin(); it != vendedores.end(); ++it){
+        if (it->getMatricula() == matricula) {
+            float rescisao = it->calcularRecisao(desligamento);
+            // Salva os dados no arquivo relatorioDemissional
+            relatorio << "Cargo: Vendedor\n"
+                      << "Nome: " << it->getNome() << "\n"
+                      << "CPF: " << it->getCPF() << "\n"
+                      << "Matricula: " << it->getMatricula() << "\n"
+                      << "Data de Ingresso: " << it->getIngressoEmpresa().dia  << "/" << it->getIngressoEmpresa().mes << "/" << it->getIngressoEmpresa().ano << "\n"
+                      << "Data de Demissão: " << desligamento.dia  << "/" << desligamento.mes << "/" << desligamento.ano << "\n"
+                      << "Tempo trabalhado: " << "\n"
+                      << "Valor de rescisao: " << rescisao << "\n"
+                      << "#########################################################\n"; 
+
+            vendedores.erase(it);
+
+            ++count;
+            break;
+        }
+    }
+    }
+
+
+    if(!count){
+    for (auto it = gerentes.begin(); it != gerentes.end(); ++it){
+        if (it->getMatricula() == matricula) {
+            float rescisao = it->calcularRecisao(desligamento);
+            // Salva os dados no arquivo relatorioDemissional
+            relatorio << "Cargo: Gerente\n"
+                      << "Nome: " << it->getNome() << "\n"
+                      << "CPF: " << it->getCPF() << "\n"
+                      << "Matricula: " << it->getMatricula() << "\n"
+                      << "Data de Ingresso: " << it->getIngressoEmpresa().dia  << "/" << it->getIngressoEmpresa().mes << "/" << it->getIngressoEmpresa().ano << "\n"
+                      << "Data de Demissão: " << desligamento.dia  << "/" << desligamento.mes << "/" << desligamento.ano << "\n"
+                      << "Tempo trabalhado: " << "\n"  
+                      << "Valor de rescisao: " << rescisao << "\n"
+                      << "#########################################################\n"; 
+
+            gerentes.erase(it);
+
+            ++count;
+            break;
+        }
+    }
+    }
+
+    relatorio.close();
+
+    // Verifica se os dados foram salvos corretamente no arquivo relatorioDemissional
+    if (count == 0) 
+        cout << "Funcionário não encontrado no sistema\n"; 
+    else {
+        try {
+            std::fstream relatorioTeste;
+            relatorioTeste.open("relatorioDemissional.txt", std::ios::in);
+
+            if (!relatorioTeste.is_open()) {
+                throw std::runtime_error("Ocorreu falha ao tentar abrir o arquivo");
+            }
+
+            cout <<"\n\n######################## Relatório Demissional ########################\n";
+
+            string linha;
+            while (getline(relatorioTeste, linha)){ 
+                cout << linha << endl;
+            }
+            
+        relatorioTeste.close();
+    } catch (const std::exception& e) {
+        std::cout << "Ocorreu uma exceção: " << e.what() << std::endl;
+    }
+    }
+
+    // Atualiza os arquivos de input
+    atualizaGerente();
+    atualizaAsgs();
+    atualizaVendedor();
+
 }
