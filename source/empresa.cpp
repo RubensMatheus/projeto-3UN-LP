@@ -448,6 +448,7 @@ void Empresa::imprimeDono() {
 
 void Empresa::buscaFuncionario(string matricula) {
     int count;
+     cout << "\n##########    Buscando funcionário    ##########" <<endl;
     for (auto asg : asgs){
         if (asg.getMatricula() == matricula){
             ++count;
@@ -564,7 +565,7 @@ void Empresa::buscaFuncionario(string matricula) {
 
 void Empresa::calculaSalarioFuncionario(string matricula){
 
-    cout << "\n######################## Calcular Salário ########################\n";
+     cout << "\n##########    Calculando Salário do Funcionário    ##########" <<endl;
     int count = 0;
     for (auto asg : asgs){
         if (asg.getMatricula() == matricula){
@@ -602,7 +603,7 @@ void Empresa::calculaTodoOsSalarios() {
     fstream salarios;
     salarios.open("salarios.txt", ios::out );
 
-    cout << "\n\n######################## Calcular todos os salários ########################\n";
+     cout << "\n##########    Calculando todos os salários    ##########";
 
     for (auto asg : asgs){
         salarios << "#########################################################" << endl;
@@ -681,7 +682,7 @@ void Empresa::calculaTodoOsSalarios() {
 void Empresa::calcularRecisao(string matricula, Data desligamento) {
     int count = 0;
 
-    cout << "######################## Calcular Recisão ########################\n";
+     cout << "\n##########    Calculando recisão    ##########" <<endl;
 
     for (auto asg : asgs){
         if (asg.getMatricula() == matricula){
@@ -915,7 +916,7 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
                 throw std::runtime_error("Ocorreu falha ao tentar abrir o arquivo");
             }
 
-            cout <<"\n\n######################## Relatório Demissional ########################\n";
+             cout << "\n##########    Relatório demissional    ##########" <<endl;
 
             string linha;
             while (getline(relatorioTeste, linha)){ 
