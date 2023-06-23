@@ -840,7 +840,8 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
         if (it->getMatricula() == matricula) {
             float rescisao = it->calcularRecisao(desligamento);
             // Salva os dados no arquivo relatorioDemissional
-            relatorio << "Cargo: Auxiliar de Serviços Gerais\n"
+            relatorio << "#########################################################\n" 
+                      << "Cargo: Auxiliar de Serviços Gerais\n"
                       << "Nome: " << it->getNome() << "\n"
                       << "CPF: " << it->getCPF() << "\n"
                       << "Matricula: " << it->getMatricula() << "\n"
@@ -862,7 +863,8 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
         if (it->getMatricula() == matricula) {
             float rescisao = it->calcularRecisao(desligamento);
             // Salva os dados no arquivo relatorioDemissional
-            relatorio << "Cargo: Vendedor\n"
+            relatorio << "#########################################################\n" 
+                      << "Cargo: Vendedor\n"
                       << "Nome: " << it->getNome() << "\n"
                       << "CPF: " << it->getCPF() << "\n"
                       << "Matricula: " << it->getMatricula() << "\n"
@@ -886,7 +888,8 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
         if (it->getMatricula() == matricula) {
             float rescisao = it->calcularRecisao(desligamento);
             // Salva os dados no arquivo relatorioDemissional
-            relatorio << "Cargo: Gerente\n"
+            relatorio << "#########################################################\n"
+                      << "Cargo: Gerente\n"
                       << "Nome: " << it->getNome() << "\n"
                       << "CPF: " << it->getCPF() << "\n"
                       << "Matricula: " << it->getMatricula() << "\n"
@@ -924,14 +927,14 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
             }
             
         relatorioTeste.close();
+
     } catch (const std::exception& e) {
         std::cout << "Ocorreu uma exceção: " << e.what() << std::endl;
     }
-    }
-
     // Atualiza os arquivos de input
     atualizaGerente();
     atualizaAsgs();
     atualizaVendedor();
+    }
 
 }
