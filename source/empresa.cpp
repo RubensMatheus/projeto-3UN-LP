@@ -833,6 +833,8 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
     fstream relatorio;
     relatorio.open("relatorioDemissional.txt", ios::out );
 
+       cout << "\n##########    Relatório demissional    ##########" <<endl;
+
     int count = 0;
     for (auto it = asgs.begin(); it != asgs.end(); ++it){
         if (it->getMatricula() == matricula) {
@@ -915,8 +917,6 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
             if (!relatorioTeste.is_open()) {
                 throw std::runtime_error("Ocorreu falha ao tentar abrir o arquivo");
             }
-
-             cout << "\n##########    Relatório demissional    ##########" <<endl;
 
             string linha;
             while (getline(relatorioTeste, linha)){ 
