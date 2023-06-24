@@ -49,17 +49,17 @@ const vector<Gerente>& Empresa::getGerentes() const {
 
 void Empresa::carregaFuncoes() {
     try {
-        std::fstream funcoes;
-        funcoes.open("leitura/funcoes.txt", std::ios::in);
+        fstream funcoes;
+        funcoes.open("leitura/funcoes.txt", ios::in);
         if (!funcoes.is_open()) {
-            throw std::runtime_error("Ocorreu falha ao tentar abrir o arquivo");
+            throw runtime_error("Ocorreu falha ao tentar abrir o arquivo");
         }
 
-        std::string linha;
-        std::vector<std::string> vetor;
+        string linha;
+        vector<string> vetor;
 
         // Lê todas as linhas do arquivo e salva cada linha em um vector
-        while (std::getline(funcoes, linha)) {
+        while (getline(funcoes, linha)) {
             vetor.push_back(linha);
         }
         funcoes.close();
@@ -91,10 +91,10 @@ void Empresa::carregaFuncoes() {
         temp.dia = stoi(vetor[i+4]);
         demitirFuncionario(matricula, temp);
     }
-    else if(vetor[i] == "contratarFuncionario()") {cout << "chegou aqui";}
+    else if(vetor[i] == "contratarFuncionario()") { contratarFuncionario(); }
     }
-    } catch (const std::exception& e) {
-        std::cout << "Ocorreu uma exceção: " << e.what() << std::endl;
+    } catch (const exception& e) {
+        cout << "Ocorreu uma exceção: " << e.what() << endl;
     }
 
 }
@@ -127,16 +127,16 @@ void Empresa::carregarEmpresa() {
 
 void Empresa::carregarAsg() {
     try {
-        std::fstream asgArq;
-        asgArq.open("leitura/asg.txt", std::ios::in);
+        fstream asgArq;
+        asgArq.open("leitura/asg.txt", ios::in);
         if (!asgArq.is_open()) {
-            throw std::runtime_error("Ocorreu falha ao tentar abrir o arquivo");
+            throw runtime_error("Ocorreu falha ao tentar abrir o arquivo");
         }
 
-        std::string linha;
-        std::vector<std::string> vetor;
+        string linha;
+        vector<string> vetor;
 
-        while (std::getline(asgArq, linha)) {
+        while (getline(asgArq, linha)) {
             vetor.push_back(linha);
         }
         asgArq.close();
@@ -166,23 +166,23 @@ void Empresa::carregarAsg() {
                 asgs.push_back(temp);
             }   
         }
-    } catch (const std::exception& e) {
-        std::cout << "Ocorreu uma exceção: " << e.what() << std::endl;
+    } catch (const exception& e) {
+        cout << "Ocorreu uma exceção: " << e.what() << endl;
     }
 }
 
 void Empresa::carregarVendedor() {
     try {
-        std::fstream vendedorArq;
-        vendedorArq.open("leitura/vendedor.txt", std::ios::in);
+        fstream vendedorArq;
+        vendedorArq.open("leitura/vendedor.txt", ios::in);
         if (!vendedorArq.is_open()) {
-            throw std::runtime_error("Ocorreu falha ao tentar abrir o arquivo");
+            throw runtime_error("Ocorreu falha ao tentar abrir o arquivo");
         }
 
-        std::string linha;
-        std::vector<std::string> vetor;
+        string linha;
+        vector<string> vetor;
 
-        while (std::getline(vendedorArq, linha)) {
+        while (getline(vendedorArq, linha)) {
             vetor.push_back(linha);
         }
         vendedorArq.close();
@@ -214,23 +214,23 @@ void Empresa::carregarVendedor() {
                 vendedores.push_back(temp);
             }   
         }
-    } catch (const std::exception& e) {
-        std::cout << "Ocorreu uma exceção: " << e.what() << std::endl;
+    } catch (const exception& e) {
+        cout << "Ocorreu uma exceção: " << e.what() << endl;
     }
 }
 
 void Empresa::carregarGerente() {
     try {
-        std::fstream gerenteArq;
-        gerenteArq.open("leitura/gerente.txt", std::ios::in);
+        fstream gerenteArq;
+        gerenteArq.open("leitura/gerente.txt", ios::in);
         if (!gerenteArq.is_open()) {
-            throw std::runtime_error("Ocorreu falha ao tentar abrir o arquivo");
+            throw runtime_error("Ocorreu falha ao tentar abrir o arquivo");
         }
 
-        std::string linha;
-        std::vector<std::string> vetor;
+        string linha;
+        vector<string> vetor;
 
-        while (std::getline(gerenteArq, linha)) {
+        while (getline(gerenteArq, linha)) {
             vetor.push_back(linha);
         }
         gerenteArq.close();
@@ -260,30 +260,30 @@ void Empresa::carregarGerente() {
                 gerentes.push_back(temp);
             }   
         }
-    } catch (const std::exception& e) {
-        std::cout << "Ocorreu uma exceção: " << e.what() << std::endl;
+    } catch (const exception& e) {
+        cout << "Ocorreu uma exceção: " << e.what() << endl;
     }
 }
 
 void Empresa::carregaDono() {
     try {
-        std::fstream donoArq;
-        donoArq.open("leitura/dono.txt", std::ios::in);
+        fstream donoArq;
+        donoArq.open("leitura/dono.txt", ios::in);
         if (!donoArq.is_open()) {
-            throw std::runtime_error("Ocorreu falha ao tentar abrir o arquivo");
+            throw runtime_error("Ocorreu falha ao tentar abrir o arquivo");
         }
 
-        std::string linha;
-        std::vector<std::string> vetor;
+        string linha;
+        vector<string> vetor;
 
-        while (std::getline(donoArq, linha)) {
+        while (getline(donoArq, linha)) {
             vetor.push_back(linha);
         }
         donoArq.close();
 
         dono.setNome(vetor[2]);
         dono.setCPF(vetor[3]);
-        dono.setQtdFilhos(std::stoi(vetor[4]));
+        dono.setQtdFilhos(stoi(vetor[4]));
         dono.setEstadoCivil(vetor[5]);
 
         Endereco endr;
@@ -291,18 +291,18 @@ void Empresa::carregaDono() {
         endr.cep = vetor[7];
         endr.bairro = vetor[8];
         endr.rua = vetor[9];
-        endr.numero = std::stoi(vetor[10]);
+        endr.numero = stoi(vetor[10]);
 
         dono.setEnderecoPessoal(endr);
 
         Data data;
-        data.ano = std::stoi(vetor[11]);
-        data.mes = std::stoi(vetor[12]);
-        data.dia = std::stoi(vetor[13]);
+        data.ano = stoi(vetor[11]);
+        data.mes = stoi(vetor[12]);
+        data.dia = stoi(vetor[13]);
 
         dono.setDataNascimento(data);
-    } catch (const std::exception& e) {
-        std::cout << "Ocorreu uma exceção: " << e.what() << std::endl;
+    } catch (const exception& e) {
+        cout << "Ocorreu uma exceção: " << e.what() << endl;
     }
 }
 
@@ -619,7 +619,9 @@ void Empresa::calculaTodoOsSalarios() {
         cout << "Salario: " << asg.calcularSalario() << endl;
         cout << "#########################################################" << endl;
 
-        salariosAsgs += asg.calcularSalario();
+        double aux = asg.calcularSalario();
+
+        salariosAsgs += aux;
     }
 
     for (auto vendedor : vendedores){
@@ -636,7 +638,9 @@ void Empresa::calculaTodoOsSalarios() {
         cout << "Salario: " << vendedor.calcularSalario() << endl;
         cout << "#########################################################" << endl;
 
-        salariosVendedores = salariosVendedores + vendedor.calcularSalario() ;
+        double aux = vendedor.calcularSalario() ;
+
+        salariosVendedores += aux;
     }
 
     for (auto gerente : gerentes){
@@ -653,13 +657,11 @@ void Empresa::calculaTodoOsSalarios() {
         cout << "Salario: " << gerente.calcularSalario() << endl;
         cout << "#########################################################" << endl;
 
-        float aux = gerente.calcularSalario();
-
+        double aux = gerente.calcularSalario();
         salariosGerentes += aux;
-
     }
 
-    double salarioTT = salariosAsgs + salariosGerentes + salariosVendedores;
+    float salarioTT = salariosAsgs + salariosGerentes + salariosVendedores;
 
     salarios << "#########################################################" << endl;
     salarios << "Salario total dos Asgs: " << salariosAsgs << endl;
@@ -717,7 +719,7 @@ void Empresa::atualizaAsgs() {
     arquivo.open("leitura/asg.txt", ios::out); //Apaga o arquivo original
     int i = 0;
 
-    std::string linha;
+    string linha;
     for (auto &asg : asgs) {
         // Grava cada atributo do ASG no arquivo , formatado da maneira que você precisa
        arquivo << "#########################################################\n"
@@ -756,7 +758,7 @@ void Empresa::atualizaGerente() {
     arquivo.open("leitura/gerente.txt", ios::out); //Apaga o arquivo original
     int i = 0;
 
-    std::string linha;
+    string linha;
     for (auto &gerente : gerentes) {
         // Grava cada atributo do Gerente no arquivo , formatado da maneira que você precisa
        arquivo << "#########################################################\n"
@@ -795,7 +797,7 @@ void Empresa::atualizaVendedor() {
     arquivo.open("leitura/vendedor.txt", ios::out); //Apaga o arquivo original
     int i = 0;
 
-    std::string linha;
+    string linha;
     for (auto &vendedor : vendedores) {
         // Grava cada atributo do Vendedor no arquivo , formatado da maneira que você precisa
        arquivo << "#########################################################\n"
@@ -914,11 +916,11 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
         cout << "Funcionário não encontrado no sistema\n"; 
     else {
         try {
-            std::fstream relatorioTeste;
-            relatorioTeste.open("relatorioDemissional.txt", std::ios::in);
+            fstream relatorioTeste;
+            relatorioTeste.open("relatorioDemissional.txt", ios::in);
 
             if (!relatorioTeste.is_open()) {
-                throw std::runtime_error("Ocorreu falha ao tentar abrir o arquivo");
+                throw runtime_error("Ocorreu falha ao tentar abrir o arquivo");
             }
 
             string linha;
@@ -928,8 +930,8 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
             
         relatorioTeste.close();
 
-    } catch (const std::exception& e) {
-        std::cout << "Ocorreu uma exceção: " << e.what() << std::endl;
+    } catch (const exception& e) {
+        cout << "Ocorreu uma exceção: " << e.what() << endl;
     }
     // Atualiza os arquivos de input
     atualizaGerente();
@@ -937,4 +939,197 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
     atualizaVendedor();
     }
 
+}
+
+void Empresa::contratarFuncionario(){
+    try {
+        fstream novofun;
+        novofun.open("leitura/novoFuncionario.txt", ios::in);
+        if (!novofun.is_open()) {
+            throw runtime_error("Ocorreu falha ao tentar abrir o arquivo");
+        }
+
+        string linha;
+        vector<string> vetor;
+
+        while (getline(novofun, linha)) {
+            vetor.push_back(linha);
+        }
+        novofun.close();
+
+        cout << "\n##########    Funcionarios contratados    ##########\n\n" <<endl;
+
+        for (size_t i = 0; i < vetor.size(); i+=25){
+            if (vetor[i+0] == "ASG"){
+                Data nascimento;
+                nascimento.ano = stoi(vetor[i+13]);
+                nascimento.mes = stoi(vetor[i+14]);
+                nascimento.dia = stoi(vetor[i+15]);
+
+                Endereco end;
+                end.cidade = vetor[i+7];
+                end.cep = vetor[i+8];
+                end.bairro = vetor[i+9];
+                end.rua = vetor[i+10];
+                end.numero = stoi(vetor[i+11]);
+
+                Data ingresso;
+                ingresso.ano = stoi(vetor[i+22]);
+                ingresso.mes = stoi(vetor[i+23]);
+                ingresso.dia = stoi(vetor[i+24]);
+
+                Asg temp(vetor[i+2], vetor[i+3], nascimento, end, vetor[i+5], stoi(vetor[i+4]), vetor[i+18],
+                    vetor[i+17], ingresso, stoi(vetor[i+20]), stof(vetor[i+19]));
+
+                cout << "#########################################################" << endl;
+
+                cout << "##### DADOS PESSOAIS #####" << endl;
+                cout << "Nome: " << temp.getNome() << endl;
+                cout << "CPF: " << temp.getCPF() << endl;
+                cout << "Qtd. Filhos: " << temp.getQtdFilhos() << endl;
+                cout << "Estado Civil: " << temp.getEstadoCivil() << endl;
+
+                cout << "***** Endereço ****" << endl;
+                cout << "Cidade: " << temp.getEnderecoPessoal().cidade << endl;
+                cout << "CEP: " << temp.getEnderecoPessoal().cep << endl;
+                cout << "Bairro: " << temp.getEnderecoPessoal().bairro << endl;
+                cout << "Rua: " << temp.getEnderecoPessoal().rua << endl;
+                cout << "Número: " << temp.getEnderecoPessoal().numero << endl;
+
+                cout << "***** Data de nascimento ****" << endl;
+                cout << "Data de Nascimento: " << temp.getDataNascimento().ano << "/"
+                        << temp.getDataNascimento().mes << "/" << temp.getDataNascimento().dia << endl;
+
+                cout << "##### DADOS FUNCIONAIS #####" << endl;
+                cout << "Matrícula: " << temp.getMatricula() << endl;
+                cout << "Cargo: Asg" << endl; 
+                cout << "Salário: " << temp.getSalario() << endl;
+                cout << "Adicional de Insalubridade: " << temp.getAdicionalInsalubridade() << endl;
+                cout << "Dias de Faltas: " << temp.getDiasFaltas() << endl;
+                cout << "***** Data de ingresso ****" << endl;
+                cout << "Data de Ingresso: " << temp.getIngressoEmpresa().ano << "/"
+                        << temp.getIngressoEmpresa().mes << "/" << temp.getIngressoEmpresa().dia << endl;
+
+                cout << "#########################################################" << endl;
+                
+                asgs.push_back(temp);
+            } else if(vetor[i+0] == "VENDEDOR") {
+                Data aux;
+                aux.ano = stoi(vetor[i+13]);
+                aux.mes = stoi(vetor[i+14]);
+                aux.dia = stoi(vetor[i+15]);
+
+                Endereco end;
+                end.cidade = vetor[i+7];
+                end.cep = vetor[i+8];
+                end.bairro = vetor[i+9];
+                end.rua = vetor[i+10];
+                end.numero = stoi(vetor[i+11]);
+
+                Data ingresso;
+                ingresso.ano = stoi(vetor[i+22]);
+                ingresso.mes = stoi(vetor[i+23]);
+                ingresso.dia = stoi(vetor[i+24]);
+
+                const char* charArray = vetor[i+19].c_str();
+
+                Vendedor temp(vetor[i+2], vetor[i+3], aux, end, vetor[i+5], stoi(vetor[i+4]), vetor[i+18],
+                    vetor[i+17], ingresso, stoi(vetor[i+20]), charArray[0]);
+                
+                cout << "#########################################################" << endl;
+
+                cout << "##### DADOS PESSOAIS #####" << endl;
+                cout << "Nome: " << temp.getNome() << endl;
+                cout << "CPF: " << temp.getCPF() << endl;
+                cout << "Qtd. Filhos: " << temp.getQtdFilhos() << endl;
+                cout << "Estado Civil: " << temp.getEstadoCivil() << endl;
+
+                cout << "***** Endereço ****" << endl;
+                cout << "Cidade: " << temp.getEnderecoPessoal().cidade << endl;
+                cout << "CEP: " << temp.getEnderecoPessoal().cep << endl;
+                cout << "Bairro: " << temp.getEnderecoPessoal().bairro << endl;
+                cout << "Rua: " << temp.getEnderecoPessoal().rua << endl;
+                cout << "Número: " << temp.getEnderecoPessoal().numero << endl;
+
+                cout << "***** Data de nascimento ****" << endl;
+                cout << "Data de Nascimento: " << temp.getDataNascimento().ano << "/"
+                        << temp.getDataNascimento().mes << "/" << temp.getDataNascimento().dia << endl;
+
+                cout << "##### DADOS FUNCIONAIS #####" << endl;
+                cout << "Matrícula: " << temp.getMatricula() << endl;
+                cout << "Cargo: Vendedor - Tipo: " << temp.getTipoVendedor() << endl; 
+                cout << "Salário: " << temp.getSalario() << endl;
+                cout << "Dias de Faltas: " << temp.getDiasFaltas() << endl;
+                cout << "***** Data de ingresso ****" << endl;
+                cout << "Data de Ingresso: " << temp.getIngressoEmpresa().ano << "/"
+                        << temp.getIngressoEmpresa().mes << "/" << temp.getIngressoEmpresa().dia << endl;
+
+                cout << "#########################################################" << endl;
+
+                vendedores.push_back(temp);
+            }else if(vetor[i+0] == "GERENTE") {
+                Data aux;
+                aux.ano = stoi(vetor[i+13]);
+                aux.mes = stoi(vetor[i+14]);
+                aux.dia = stoi(vetor[i+15]);
+
+                Endereco end;
+                end.cidade = vetor[i+7];
+                end.cep = vetor[i+8];
+                end.bairro = vetor[i+9];
+                end.rua = vetor[i+10];
+                end.numero = stoi(vetor[i+11]);
+
+                Data ingresso;
+                ingresso.ano = stoi(vetor[i+22]);
+                ingresso.mes = stoi(vetor[i+23]);
+                ingresso.dia = stoi(vetor[i+24]);
+
+                Gerente temp(vetor[i+2], vetor[i+3], aux, end, vetor[i+5], stoi(vetor[i+4]), vetor[i+18],
+                    vetor[i+17], ingresso, stoi(vetor[i+20]), stof(vetor[i+19]));
+                
+                cout << "#########################################################" << endl;
+
+                cout << "##### DADOS PESSOAIS #####" << endl;
+                cout << "Nome: " << temp.getNome() << endl;
+                cout << "CPF: " << temp.getCPF() << endl;
+                cout << "Qtd. Filhos: " << temp.getQtdFilhos() << endl;
+                cout << "Estado Civil: " << temp.getEstadoCivil() << endl;
+
+                cout << "***** Endereço ****" << endl;
+                cout << "Cidade: " << temp.getEnderecoPessoal().cidade << endl;
+                cout << "CEP: " << temp.getEnderecoPessoal().cep << endl;
+                cout << "Bairro: " << temp.getEnderecoPessoal().bairro << endl;
+                cout << "Rua: " << temp.getEnderecoPessoal().rua << endl;
+                cout << "Número: " << temp.getEnderecoPessoal().numero << endl;
+
+                cout << "***** Data de nascimento ****" << endl;
+                cout << "Data de Nascimento: " << temp.getDataNascimento().ano << "/"
+                        << temp.getDataNascimento().mes << "/" << temp.getDataNascimento().dia << endl;
+
+                cout << "##### DADOS FUNCIONAIS #####" << endl;
+                cout << "Matrícula: " << temp.getMatricula() << endl;
+                cout << "Cargo: Gerente" << endl; 
+                cout << "Salário: " << temp.getSalario() << endl;
+                cout << "Participação nos Lucros: " << temp.getParticipacaoLucros() << endl;
+                cout << "Dias de Faltas: " << temp.getDiasFaltas() << endl;
+
+                cout << "***** Data de ingresso ****" << endl;
+                cout << "Data de Ingresso: " << temp.getIngressoEmpresa().ano << "/"
+                        << temp.getIngressoEmpresa().mes << "/" << temp.getIngressoEmpresa().dia << endl;
+
+                cout << "#########################################################" << endl;
+
+                gerentes.push_back(temp);
+            }
+        }
+
+        // Atualiza os arquivos de input
+        atualizaGerente();
+        atualizaAsgs();
+        atualizaVendedor();
+
+    } catch (const exception& e) {
+    cout << "Ocorreu uma exceção: " << e.what() << endl;
+    }
 }

@@ -1,0 +1,10 @@
+#########################################################
+Cargo: Vendedor
+Nome: Suziane Maria
+CPF: 895.562.415-09
+Matricula: 72.123-7
+Data de Ingresso: 20/4/2014
+Data de Demissão: 10/8/2020
+Tempo trabalhado: 
+Valor de rescisao: 9452.05
+#########################################################

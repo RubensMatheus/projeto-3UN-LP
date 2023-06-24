@@ -63,6 +63,7 @@ public:
     void calculaTodoOsSalarios();
     void calcularRecisao(string matricula, Data desligamento);
     void demitirFuncionario(string matricula, Data desligamento);
+    void contratarFuncionario();
 };
 
 #endif
