@@ -957,10 +957,15 @@ void Empresa::contratarFuncionario(){
         }
         novofun.close();
 
+        bool asgContratado = false;
+        bool vendedorContratado = false;
+        bool gerenteContratado = false;
+
         cout << "\n##########    Funcionarios contratados    ##########\n\n" <<endl;
 
         for (size_t i = 0; i < vetor.size(); i+=25){
             if (vetor[i+0] == "ASG"){
+                asgContratado = true;
                 Data nascimento;
                 nascimento.ano = stoi(vetor[i+13]);
                 nascimento.mes = stoi(vetor[i+14]);
@@ -1014,6 +1019,7 @@ void Empresa::contratarFuncionario(){
                 
                 asgs.push_back(temp);
             } else if(vetor[i+0] == "VENDEDOR") {
+                vendedorContratado = true;
                 Data aux;
                 aux.ano = stoi(vetor[i+13]);
                 aux.mes = stoi(vetor[i+14]);
@@ -1068,6 +1074,7 @@ void Empresa::contratarFuncionario(){
 
                 vendedores.push_back(temp);
             }else if(vetor[i+0] == "GERENTE") {
+                gerenteContratado = true;
                 Data aux;
                 aux.ano = stoi(vetor[i+13]);
                 aux.mes = stoi(vetor[i+14]);
@@ -1125,9 +1132,9 @@ void Empresa::contratarFuncionario(){
         }
 
         // Atualiza os arquivos de input
-        atualizaGerente();
-        atualizaAsgs();
-        atualizaVendedor();
+        if(asgContratado) { atualizaAsgs(); }
+        if(vendedorContratado){ atualizaGerente(); }
+        if(gerenteContratado) { atualizaVendedor(); }
 
     } catch (const exception& e) {
     cout << "Ocorreu uma exceção: " << e.what() << endl;
