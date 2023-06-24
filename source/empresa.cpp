@@ -308,7 +308,10 @@ void Empresa::carregaDono() {
 
 void Empresa::imprimeAsgs(){
     int cont = 0;
-    cout << "\n\n\n";
+
+    cout << "\n##########    Imprimindo ASGs   ##########" << endl;
+
+    cout << "\n\n";
     for (const auto& asg : asgs) {
         cout << "#########################################################" << endl;
         cout << "ASG Nº: " << cont << endl;
@@ -347,7 +350,10 @@ void Empresa::imprimeAsgs(){
 
 void Empresa::imprimeVendedores() {
     int cont = 0;
-    cout << "\n\n\n";
+
+    cout << "\n##########    Imprimindo vendedores    ##########" << endl;
+
+    cout << "\n\n";
     for (const auto& vendedor : vendedores) {
         cout << "#########################################################" << endl;
         cout << "Vendedor Nº: " << cont << endl;
@@ -385,7 +391,10 @@ void Empresa::imprimeVendedores() {
 
 void Empresa::imprimeGerentes() {
     int cont = 0;
-    cout << "\n\n\n";
+
+    cout << "\n##########    Imprimindo gerentes    ##########" << endl;
+
+    cout << "\n\n";
     for (const auto& gerente : gerentes) {
         cout << "#########################################################" << endl;
         cout << "Gerente Nº: " << cont << endl;
@@ -424,7 +433,9 @@ void Empresa::imprimeGerentes() {
 }
 
 void Empresa::imprimeDono() {
-    cout << "\n\n\n";
+    cout << "\n##########    Imprimindo Dono   ##########" << endl;
+
+    cout << "\n\n";
     cout << "#########################################################" << endl;
     cout << "##### DADOS PESSOAIS DO DONO #####" << endl;
     cout << "Nome: " << dono.getNome() << endl;
@@ -448,7 +459,9 @@ void Empresa::imprimeDono() {
 
 void Empresa::buscaFuncionario(string matricula) {
     int count;
-     cout << "\n##########    Buscando funcionário    ##########" <<endl;
+
+    cout << "\n##########    Buscando funcionário    ##########" <<endl;
+
     for (auto asg : asgs){
         if (asg.getMatricula() == matricula){
             ++count;
@@ -603,7 +616,7 @@ void Empresa::calculaTodoOsSalarios() {
     fstream salarios;
     salarios.open("salarios.txt", ios::out );
 
-     cout << "\n##########    Calculando todos os salários    ##########";
+    cout << "\n##########    Calculando todos os salários    ##########";
 
     for (auto asg : asgs){
         salarios << "#########################################################" << endl;
@@ -684,7 +697,7 @@ void Empresa::calculaTodoOsSalarios() {
 void Empresa::calcularRecisao(string matricula, Data desligamento) {
     int count = 0;
 
-     cout << "\n##########    Calculando recisão    ##########" << endl;
+    cout << "\n##########    Calculando recisão    ##########" << endl;
 
     for (auto asg : asgs){
         if (asg.getMatricula() == matricula){
