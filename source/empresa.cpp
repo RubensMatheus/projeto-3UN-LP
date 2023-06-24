@@ -927,8 +927,10 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
     relatorio << "##############################\n"
               << "    Relatorio Demissional\n"
               << "##############################\n";
+    
+    auto it = asgs.begin();
 
-    for (auto it = asgs.begin(); it != asgs.end(); ++it){
+    while (it != asgs.end()){
         if (it->getMatricula() == matricula) {
             // Calcula a recisao do vendedor encontrado
             float rescisao = it->calcularRecisao(desligamento);
@@ -947,77 +949,82 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
                       << "******************************\n"
                       << "Valor de rescisao: R$" << rescisao << "\n"
                       << "******************************\n"
-                      << "Tempo de Trabalho: " << anos << " anos, " << meses << " meses e " << dias <<  " dias\n";
+                      << "Tempo de Trabalho: " << anos << " anos, " << meses << " meses e " << dias <<  " dias\n\n";
 
-            asgs.erase(it);
-
+            it = asgs.erase(it);
             asgContratado = true;
-            break;
-        }
+
+        }  else 
+            ++it;
+        
     }
 
-    if(!asgContratado) {
-    for (auto it = vendedores.begin(); it != vendedores.end(); ++it){
-        if (it->getMatricula() == matricula) {
+    auto it2 = vendedores.begin(); 
+
+    while (it2 != vendedores.end()){
+        if (it2->getMatricula() == matricula) {
             // Calcula a recisao do vendedor encontrado
-            float rescisao = it->calcularRecisao(desligamento);
+            float rescisao = it2->calcularRecisao(desligamento);
             // Calcula o tempo trabalhado
-            float anos = (desligamento.ano - 1) - it->getIngressoEmpresa().ano;
-            float meses = (desligamento.mes + 11) - it->getIngressoEmpresa().mes;
-            float dias = (desligamento.dia + 30) - it->getIngressoEmpresa().dia;
+            float anos = (desligamento.ano - 1) - it2->getIngressoEmpresa().ano;
+            float meses = (desligamento.mes + 11) - it2->getIngressoEmpresa().mes;
+            float dias = (desligamento.dia + 30) - it2->getIngressoEmpresa().dia;
 
             // Salva os dados no arquivo relatorioDemissional
             relatorio << "Cargo: Vendedor\n"
-                      << "Nome: " << it->getNome() << "\n"
-                      << "CPF: " << it->getCPF() << "\n"
-                      << "Matricula: " << it->getMatricula() << "\n"
-                      << "Data de Ingresso: " << it->getIngressoEmpresa().dia  << "/" << it->getIngressoEmpresa().mes << "/" << it->getIngressoEmpresa().ano << "\n"
+                      << "Nome: " << it2->getNome() << "\n"
+                      << "CPF: " << it2->getCPF() << "\n"
+                      << "Matricula: " << it2->getMatricula() << "\n"
+                      << "Data de Ingresso: " << it2->getIngressoEmpresa().dia  << "/" << it2->getIngressoEmpresa().mes << "/" << it2->getIngressoEmpresa().ano << "\n"
                       << "Data de Demissão: " << desligamento.dia  << "/" << desligamento.mes << "/" << desligamento.ano << "\n"
                       << "******************************\n"
                       << "Valor de rescisão: R$" << rescisao << "\n"
                       << "******************************\n"
-                      << "Tempo de Trabalho: " << anos << " anos, " << meses << " meses e " << dias <<  " dias\n";
+                      << "Tempo de Trabalho: " << anos << " anos, " << meses << " meses e " << dias <<  " dias\n\n";
 
-            vendedores.erase(it);
+            it2 = vendedores.erase(it2);
 
             vendedorContratado = true;
-            break;
-        }
-    }
+        }  else 
+            ++it2;
+        
     }
 
 
-    if(!(vendedorContratado || asgContratado)){
-    for (auto it = gerentes.begin(); it != gerentes.end(); ++it){
-        if (it->getMatricula() == matricula) {
+    auto it3 = gerentes.begin();
+
+    while(it3 != gerentes.end()) {
+        if (it3->getMatricula() == matricula) {
             // Calcula a recisao do vendedor encontrado
-            float rescisao = it->calcularRecisao(desligamento);
+            float rescisao = it3->calcularRecisao(desligamento);
             // Calcula o tempo trabalhado
-            float anos = (desligamento.ano - 1) - it->getIngressoEmpresa().ano;
-            float meses = (desligamento.mes + 11) - it->getIngressoEmpresa().mes;
-            float dias = (desligamento.dia + 30) - it->getIngressoEmpresa().dia;
+            float anos = (desligamento.ano - 1) - it3->getIngressoEmpresa().ano;
+            float meses = (desligamento.mes + 11) - it3->getIngressoEmpresa().mes;
+            float dias = (desligamento.dia + 30) - it3->getIngressoEmpresa().dia;
 
             // Salva os dados no arquivo relatorioDemissional
             relatorio << "Cargo: Gerente\n"
-                      << "Nome: " << it->getNome() << "\n"
-                      << "CPF: " << it->getCPF() << "\n"
-                      << "Matricula: " << it->getMatricula() << "\n"
-                      << "Data de Ingresso: " << it->getIngressoEmpresa().dia  << "/" << it->getIngressoEmpresa().mes << "/" << it->getIngressoEmpresa().ano << "\n"
+                      << "Nome: " << it3->getNome() << "\n"
+                      << "CPF: " << it3->getCPF() << "\n"
+                      << "Matricula: " << it3->getMatricula() << "\n"
+                      << "Data de Ingresso: " << it3->getIngressoEmpresa().dia  << "/" << it3->getIngressoEmpresa().mes << "/" << it3->getIngressoEmpresa().ano << "\n"
                       << "Data de Demissão: " << desligamento.dia  << "/" << desligamento.mes << "/" << desligamento.ano << "\n"
                       << "******************************\n"
                       << "Valor de recisão: R$" << rescisao << "\n"
                       << "******************************\n"
-                      << "Tempo de Trabalho: " << anos << " anos, " << meses << " meses e " << dias <<  " dias\n";
+                      << "Tempo de Trabalho: " << anos << " anos, " << meses << " meses e " << dias <<  " dias\n\n";
 
-            gerentes.erase(it);
+            it3 = gerentes.erase(it3);
 
             gerenteContratado = true;
-            break;
-        }
-    }
+
+        } else 
+            ++it3;    
     }
 
+
     relatorio.close();
+
 
     // Verifica se os dados foram salvos corretamente no arquivo relatorioDemissional
     if (!(asgContratado || vendedorContratado || gerenteContratado)) {
@@ -1034,9 +1041,7 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
                 throw runtime_error("Ocorreu falha ao tentar abrir o arquivo");
             }
 
-            // Pula uma linha antes de imprimir o relatório
             string linha;
-
             // Imprime cada linha do relatório
             while (getline(relatorioTeste, linha)){ 
                 cout << linha << endl;
@@ -1051,12 +1056,11 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
         // Atualiza os arquivos de input
         if(asgContratado)
             atualizaAsgs();
-        else if(gerenteContratado)
+        if(gerenteContratado)
             atualizaGerente();
-        else if(vendedorContratado)
+        if(vendedorContratado)
             atualizaVendedor();
     }
-
 }
 
 void Empresa::contratarFuncionario(){
