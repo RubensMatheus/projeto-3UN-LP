@@ -614,6 +614,8 @@ void Empresa::calculaTodoOsSalarios() {
     double salariosGerentes;
 
     fstream salarios;
+    fstream relatorio;
+
     salarios.open("salarios.txt", ios::out );
 
     cout << "\n##########    Calculando todos os salários    ##########";
@@ -674,7 +676,7 @@ void Empresa::calculaTodoOsSalarios() {
         salariosGerentes += aux;
     }
 
-    float salarioTT = salariosAsgs + salariosGerentes + salariosVendedores;
+    double salarioTT = salariosAsgs + salariosGerentes + salariosVendedores;
 
     salarios << "#########################################################" << endl;
     salarios << "Salario total dos Asgs: " << salariosAsgs << endl;
@@ -692,6 +694,74 @@ void Empresa::calculaTodoOsSalarios() {
     cout << "Salario total dos Gerentes " << salariosGerentes << endl;
     cout << "Salario total de todos os funcionarios " << salarioTT << endl;
     cout << "#########################################################\n" << endl;
+
+    //------------------------//
+
+    relatorio.open("relatorioFinanceiro.txt", ios::out);
+
+    double porcentoASG = (salariosAsgs*100)/salarioTT;
+    double porcentoVendedores = (salariosVendedores*100)/salarioTT;
+    double porcentoGerentes = (salariosGerentes*100)/salarioTT;
+    double desempenhoFinanceiro = getFaturamentoMensal() - salarioTT;
+
+    //------------------------//
+
+    relatorio << "######### Relatório Financeiro ########" << endl << endl;
+    cout << "######### Gerando Relatório Financeiro ########" << endl << endl;
+
+    relatorio << "Cargo: ASG" << endl;
+    cout << "Cargo: ASG" << endl;
+
+    for (auto asg : asgs){
+        relatorio << asg.getNome() << " - R$ " <<asg.calcularSalario() << endl;
+        cout << asg.getNome() << " - R$ " <<asg.calcularSalario() << endl;
+    }
+
+    relatorio << "Total ASG: " << salariosAsgs << endl << endl;
+    cout << "Total ASG: " << salariosAsgs << endl << endl;
+
+    for (auto vendedor : vendedores){
+        relatorio << vendedor.getNome() << " - R$ " << vendedor.calcularSalario() << endl;
+        cout << vendedor.getNome() << " - R$ " << vendedor.calcularSalario() << endl;
+    }
+
+    relatorio << "Total Vendedor: " << salariosVendedores  << endl << endl;
+    cout << "Total Vendedor: " << salariosVendedores << endl << endl;
+
+    for (auto gerente : gerentes){
+        relatorio << gerente.getNome() << " - R$ " << gerente.calcularSalario() << endl;
+        cout << gerente.getNome() << " - R$ " << gerente.calcularSalario() << endl;
+    }
+
+    relatorio << "Total Gerente: " << salariosGerentes  << endl << endl;
+    cout << "Total Gerente: " << salariosGerentes << endl << endl;
+
+    relatorio << "CUSTO TOTAL: " << salarioTT  << endl << endl;
+    cout << "CUSTO TOTAL: " << salarioTT << endl << endl;
+
+    relatorio << "FATURAMENTO MENSAL: " << getFaturamentoMensal()  << endl << endl;
+    cout << "FATURAMENTO MENSAL: " << getFaturamentoMensal() << endl << endl;
+
+    relatorio << "Custo ASG(%): " << porcentoASG <<"%" << endl;
+    relatorio << "Custo Vendedor(%): " << porcentoVendedores <<"%" << endl;
+    relatorio << "Custo Gerente(%): " << porcentoGerentes <<"%" << endl << endl;
+
+    cout << "Custo ASG(%): " << porcentoASG <<"%" << endl;
+    cout << "Custo Vendedor(%): " << porcentoVendedores <<"%" << endl;
+    cout << "Custo Gerente(%): " << porcentoGerentes <<"%" << endl << endl;
+    
+    relatorio << "LUCRO DA EMPRESA: " <<  desempenhoFinanceiro  << endl << endl;
+    cout << "LUCRO DA EMPRESA: " <<  desempenhoFinanceiro  << endl << endl;
+
+    if(desempenhoFinanceiro > 0){
+        relatorio << "SITUAÇÃO: Lucro "  << endl << endl;
+        cout << "SITUAÇÃO: Lucro " << endl << endl;
+    } else {
+        relatorio << "SITUAÇÃO: Prejuízo "  << endl << endl;
+        cout << "SITUAÇÃO: Prejuízo " << endl << endl;
+    }
+
+    relatorio.close();
 }
 
 void Empresa::calcularRecisao(string matricula, Data desligamento) {

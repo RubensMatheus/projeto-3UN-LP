@@ -14,14 +14,14 @@ Cargo: Asg
 Salario: 1347.4
 #########################################################
 #########################################################
+Nome: Pedro de Araujo
+Cargo: Asg
+Salario: 1293.6
+#########################################################
+#########################################################
 Nome: Luiz de Souza
 Cargo: Vendedor - Tipo: B
 Salario: 1750
-#########################################################
-#########################################################
-Nome: Suziane Maria
-Cargo: Vendedor - Tipo: A
-Salario: 2012.5
 #########################################################
 #########################################################
 Nome: Alexandra Gonçalve Dias
@@ -44,8 +44,8 @@ Cargo: Gerente
 Salario: 3100
 #########################################################
 #########################################################
-Salario total dos Asgs: 4227
-Salario total dos Vendedores 8905
+Salario total dos Asgs: 5520.6
+Salario total dos Vendedores 6892.55
 Salario total dos Gerentes 3100
-Salario total de todos os funcionarios 16232
+Salario total de todos os funcionarios 15513.1
 #########################################################
