@@ -714,6 +714,7 @@ void Empresa::calcularRecisao(string matricula, Data desligamento) {
     if (count == 0) { cout << "Funcionário não encontrado no sistema\n"; }
 }
 
+
 void Empresa::atualizaAsgs() {
     fstream arquivo;
     arquivo.open("leitura/asg.txt", ios::out); //Apaga o arquivo original
@@ -721,7 +722,7 @@ void Empresa::atualizaAsgs() {
 
     string linha;
     for (auto &asg : asgs) {
-        // Grava cada atributo do ASG no arquivo , formatado da maneira que você precisa
+        // Grava cada atributo do ASG no arquivo, formatado da maneira correta
        arquivo << "#########################################################\n"
                 << "ASG Nº: " << i << "\n"
                 << "##### DADOS PESSOAIS #####\n"
@@ -743,7 +744,7 @@ void Empresa::atualizaAsgs() {
                 << asg.getMatricula() << "\n"
                 << asg.getSalario() << "\n"
                 << asg.getAdicionalInsalubridade() << "\n"
-                << asg.getDiasFaltas() << "\n"   // incluído quantidade de faltas
+                << asg.getDiasFaltas() << "\n"   
                 << "***** Data de ingresso (ano, mes, dia) ****\n"
                 << asg.getIngressoEmpresa().ano << "\n"
                 << asg.getIngressoEmpresa().mes << "\n"
@@ -760,7 +761,7 @@ void Empresa::atualizaGerente() {
 
     string linha;
     for (auto &gerente : gerentes) {
-        // Grava cada atributo do Gerente no arquivo , formatado da maneira que você precisa
+        // Grava cada atributo do Gerente no arquivo , formatado da maneira correta
        arquivo << "#########################################################\n"
                 << "GERENTE Nº: " << i << "\n"
                 << "##### DADOS PESSOAIS #####\n"
@@ -782,7 +783,7 @@ void Empresa::atualizaGerente() {
                 << gerente.getMatricula() << "\n"
                 << gerente.getSalario() << "\n"
                 << gerente.getParticipacaoLucros() << "\n"
-                << gerente.getDiasFaltas() << "\n"   // incluído quantidade de faltas
+                << gerente.getDiasFaltas() << "\n"  
                 << "***** Data de ingresso (ano, mes, dia) ****\n"
                 << gerente.getIngressoEmpresa().ano << "\n"
                 << gerente.getIngressoEmpresa().mes << "\n"
@@ -799,7 +800,7 @@ void Empresa::atualizaVendedor() {
 
     string linha;
     for (auto &vendedor : vendedores) {
-        // Grava cada atributo do Vendedor no arquivo , formatado da maneira que você precisa
+        // Grava cada atributo do Vendedor no arquivo, formatado da maneira correta
        arquivo << "#########################################################\n"
                 << "VENDEDOR Nº: " << i << "\n"
                 << "##### DADOS PESSOAIS #####\n"
@@ -821,7 +822,7 @@ void Empresa::atualizaVendedor() {
                 << vendedor.getMatricula() << "\n"
                 << vendedor.getSalario() << "\n"
                 << vendedor.getTipoVendedor() << "\n"
-                << vendedor.getDiasFaltas() << "\n"   // incluído quantidade de faltas
+                << vendedor.getDiasFaltas() << "\n"   
                 << "***** Data de ingresso (ano, mes, dia) ****\n"
                 << vendedor.getIngressoEmpresa().ano << "\n"
                 << vendedor.getIngressoEmpresa().mes << "\n"
@@ -835,9 +836,12 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
     fstream relatorio;
     relatorio.open("relatorioDemissional.txt", ios::out );
 
-       cout << "\n##########    Relatório demissional    ##########" <<endl;
+    cout << "\n##########    Relatório demissional    ##########" <<endl;
 
-    int count = 0;
+    bool asgContratado = false;
+    bool vendedorContratado = false;
+    bool gerenteContratado = false;
+
     for (auto it = asgs.begin(); it != asgs.end(); ++it){
         if (it->getMatricula() == matricula) {
             float rescisao = it->calcularRecisao(desligamento);
@@ -855,12 +859,12 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
 
             asgs.erase(it);
 
-            ++count;
+            asgContratado = true;
             break;
         }
     }
 
-    if(!count) {
+    if(!asgContratado) {
     for (auto it = vendedores.begin(); it != vendedores.end(); ++it){
         if (it->getMatricula() == matricula) {
             float rescisao = it->calcularRecisao(desligamento);
@@ -878,14 +882,14 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
 
             vendedores.erase(it);
 
-            ++count;
+            vendedorContratado = true;
             break;
         }
     }
     }
 
 
-    if(!count){
+    if(!(vendedorContratado || asgContratado)){
     for (auto it = gerentes.begin(); it != gerentes.end(); ++it){
         if (it->getMatricula() == matricula) {
             float rescisao = it->calcularRecisao(desligamento);
@@ -903,7 +907,7 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
 
             gerentes.erase(it);
 
-            ++count;
+            gerenteContratado = true;
             break;
         }
     }
@@ -912,7 +916,7 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
     relatorio.close();
 
     // Verifica se os dados foram salvos corretamente no arquivo relatorioDemissional
-    if (count == 0) 
+    if (!(asgContratado || vendedorContratado || gerenteContratado)) 
         cout << "Funcionário não encontrado no sistema\n"; 
     else {
         try {
@@ -924,19 +928,24 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
             }
 
             string linha;
+            // Imprime cada linha do relatório
             while (getline(relatorioTeste, linha)){ 
                 cout << linha << endl;
             }
             
-        relatorioTeste.close();
+            relatorioTeste.close();
 
-    } catch (const exception& e) {
-        cout << "Ocorreu uma exceção: " << e.what() << endl;
-    }
-    // Atualiza os arquivos de input
-    atualizaGerente();
-    atualizaAsgs();
-    atualizaVendedor();
+        } catch (const exception& e) {
+            cout << "Ocorreu uma exceção: " << e.what() << endl;
+        }
+    
+        // Atualiza os arquivos de input
+        if(asgContratado)
+            atualizaAsgs();
+        else if(gerenteContratado)
+            atualizaGerente();
+        else if(vendedorContratado)
+            atualizaVendedor();
     }
 
 }
