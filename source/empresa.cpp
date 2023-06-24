@@ -678,13 +678,13 @@ void Empresa::calculaTodoOsSalarios() {
     cout << "Salario total dos Vendedores " << salariosVendedores << endl;
     cout << "Salario total dos Gerentes " << salariosGerentes << endl;
     cout << "Salario total de todos os funcionarios " << salarioTT << endl;
-    cout << "#########################################################" << endl;
+    cout << "#########################################################\n" << endl;
 }
 
 void Empresa::calcularRecisao(string matricula, Data desligamento) {
     int count = 0;
 
-     cout << "\n##########    Calculando recisão    ##########" <<endl;
+     cout << "\n##########    Calculando recisão    ##########" << endl;
 
     for (auto asg : asgs){
         if (asg.getMatricula() == matricula){
@@ -836,26 +836,35 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
     fstream relatorio;
     relatorio.open("relatorioDemissional.txt", ios::out );
 
-    cout << "\n##########    Relatório demissional    ##########" <<endl;
-
     bool asgContratado = false;
     bool vendedorContratado = false;
     bool gerenteContratado = false;
 
+    // Insere cabeçalho no relatorio
+    relatorio << "##############################\n"
+              << "    Relatorio Demissional\n"
+              << "##############################\n";
+
     for (auto it = asgs.begin(); it != asgs.end(); ++it){
         if (it->getMatricula() == matricula) {
+            // Calcula a recisao do vendedor encontrado
             float rescisao = it->calcularRecisao(desligamento);
+            // Calcula o tempo trabalhado
+            float anos = (desligamento.ano - 1) - it->getIngressoEmpresa().ano;
+            float meses = (desligamento.mes + 11) - it->getIngressoEmpresa().mes;
+            float dias = (desligamento.dia + 30) - it->getIngressoEmpresa().dia;
+
             // Salva os dados no arquivo relatorioDemissional
-            relatorio << "#########################################################\n" 
-                      << "Cargo: Auxiliar de Serviços Gerais\n"
+            relatorio << "Cargo: Auxiliar de Serviços Gerais\n"
                       << "Nome: " << it->getNome() << "\n"
                       << "CPF: " << it->getCPF() << "\n"
                       << "Matricula: " << it->getMatricula() << "\n"
                       << "Data de Ingresso: " << it->getIngressoEmpresa().dia  << "/" << it->getIngressoEmpresa().mes << "/" << it->getIngressoEmpresa().ano << "\n"
                       << "Data de Demissão: " << desligamento.dia  << "/" << desligamento.mes << "/" << desligamento.ano << "\n"
-                      << "Tempo trabalhado: " << "\n"
-                      << "Valor de rescisao: " << rescisao << "\n"
-                      << "#########################################################\n"; 
+                      << "******************************\n"
+                      << "Valor de rescisao: R$" << rescisao << "\n"
+                      << "******************************\n"
+                      << "Tempo de Trabalho: " << anos << " anos, " << meses << " meses e " << dias <<  " dias\n";
 
             asgs.erase(it);
 
@@ -867,18 +876,24 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
     if(!asgContratado) {
     for (auto it = vendedores.begin(); it != vendedores.end(); ++it){
         if (it->getMatricula() == matricula) {
+            // Calcula a recisao do vendedor encontrado
             float rescisao = it->calcularRecisao(desligamento);
+            // Calcula o tempo trabalhado
+            float anos = (desligamento.ano - 1) - it->getIngressoEmpresa().ano;
+            float meses = (desligamento.mes + 11) - it->getIngressoEmpresa().mes;
+            float dias = (desligamento.dia + 30) - it->getIngressoEmpresa().dia;
+
             // Salva os dados no arquivo relatorioDemissional
-            relatorio << "#########################################################\n" 
-                      << "Cargo: Vendedor\n"
+            relatorio << "Cargo: Vendedor\n"
                       << "Nome: " << it->getNome() << "\n"
                       << "CPF: " << it->getCPF() << "\n"
                       << "Matricula: " << it->getMatricula() << "\n"
                       << "Data de Ingresso: " << it->getIngressoEmpresa().dia  << "/" << it->getIngressoEmpresa().mes << "/" << it->getIngressoEmpresa().ano << "\n"
                       << "Data de Demissão: " << desligamento.dia  << "/" << desligamento.mes << "/" << desligamento.ano << "\n"
-                      << "Tempo trabalhado: " << "\n"
-                      << "Valor de rescisao: " << rescisao << "\n"
-                      << "#########################################################\n"; 
+                      << "******************************\n"
+                      << "Valor de rescisão: R$" << rescisao << "\n"
+                      << "******************************\n"
+                      << "Tempo de Trabalho: " << anos << " anos, " << meses << " meses e " << dias <<  " dias\n";
 
             vendedores.erase(it);
 
@@ -892,18 +907,24 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
     if(!(vendedorContratado || asgContratado)){
     for (auto it = gerentes.begin(); it != gerentes.end(); ++it){
         if (it->getMatricula() == matricula) {
+            // Calcula a recisao do vendedor encontrado
             float rescisao = it->calcularRecisao(desligamento);
+            // Calcula o tempo trabalhado
+            float anos = (desligamento.ano - 1) - it->getIngressoEmpresa().ano;
+            float meses = (desligamento.mes + 11) - it->getIngressoEmpresa().mes;
+            float dias = (desligamento.dia + 30) - it->getIngressoEmpresa().dia;
+
             // Salva os dados no arquivo relatorioDemissional
-            relatorio << "#########################################################\n"
-                      << "Cargo: Gerente\n"
+            relatorio << "Cargo: Gerente\n"
                       << "Nome: " << it->getNome() << "\n"
                       << "CPF: " << it->getCPF() << "\n"
                       << "Matricula: " << it->getMatricula() << "\n"
                       << "Data de Ingresso: " << it->getIngressoEmpresa().dia  << "/" << it->getIngressoEmpresa().mes << "/" << it->getIngressoEmpresa().ano << "\n"
                       << "Data de Demissão: " << desligamento.dia  << "/" << desligamento.mes << "/" << desligamento.ano << "\n"
-                      << "Tempo trabalhado: " << "\n"  
-                      << "Valor de rescisao: " << rescisao << "\n"
-                      << "#########################################################\n"; 
+                      << "******************************\n"
+                      << "Valor de recisão: R$" << rescisao << "\n"
+                      << "******************************\n"
+                      << "Tempo de Trabalho: " << anos << " anos, " << meses << " meses e " << dias <<  " dias\n";
 
             gerentes.erase(it);
 
@@ -916,9 +937,12 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
     relatorio.close();
 
     // Verifica se os dados foram salvos corretamente no arquivo relatorioDemissional
-    if (!(asgContratado || vendedorContratado || gerenteContratado)) 
+    if (!(asgContratado || vendedorContratado || gerenteContratado)) {
+        cout << "##############################\n";
+        cout << "    Relatorio Demissional\n";
+        cout << "##############################\n";
         cout << "Funcionário não encontrado no sistema\n"; 
-    else {
+   } else {
         try {
             fstream relatorioTeste;
             relatorioTeste.open("relatorioDemissional.txt", ios::in);
@@ -927,7 +951,9 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
                 throw runtime_error("Ocorreu falha ao tentar abrir o arquivo");
             }
 
+            // Pula uma linha antes de imprimir o relatório
             string linha;
+
             // Imprime cada linha do relatório
             while (getline(relatorioTeste, linha)){ 
                 cout << linha << endl;
