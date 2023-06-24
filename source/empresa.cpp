@@ -309,7 +309,7 @@ void Empresa::carregaDono() {
 void Empresa::imprimeAsgs(){
     int cont = 0;
 
-    cout << "\n##########    Imprimindo ASGs   ##########" << endl;
+    cout << "\n##########    Imprimindo ASGs   ##########\n\n\n";
 
     cout << "\n\n";
     for (const auto& asg : asgs) {
@@ -351,7 +351,7 @@ void Empresa::imprimeAsgs(){
 void Empresa::imprimeVendedores() {
     int cont = 0;
 
-    cout << "\n##########    Imprimindo vendedores    ##########" << endl;
+    cout << "\n##########    Imprimindo vendedores    ##########\n\n\n";
 
     cout << "\n\n";
     for (const auto& vendedor : vendedores) {
@@ -392,7 +392,7 @@ void Empresa::imprimeVendedores() {
 void Empresa::imprimeGerentes() {
     int cont = 0;
 
-    cout << "\n##########    Imprimindo gerentes    ##########" << endl;
+    cout << "\n##########    Imprimindo gerentes    #########\n\n\n";
 
     cout << "\n\n";
     for (const auto& gerente : gerentes) {
@@ -433,9 +433,8 @@ void Empresa::imprimeGerentes() {
 }
 
 void Empresa::imprimeDono() {
-    cout << "\n##########    Imprimindo Dono   ##########" << endl;
+    cout << "\n##########    Imprimindo Dono   ##########\n\n\n";
 
-    cout << "\n\n";
     cout << "#########################################################" << endl;
     cout << "##### DADOS PESSOAIS DO DONO #####" << endl;
     cout << "Nome: " << dono.getNome() << endl;
@@ -460,7 +459,8 @@ void Empresa::imprimeDono() {
 void Empresa::buscaFuncionario(string matricula) {
     int count;
 
-    cout << "\n##########    Buscando funcionário    ##########" <<endl;
+    cout << "\n##########    Buscando funcionário    ##########\n\n\n";
+
 
     for (auto asg : asgs){
         if (asg.getMatricula() == matricula){
@@ -578,7 +578,7 @@ void Empresa::buscaFuncionario(string matricula) {
 
 void Empresa::calculaSalarioFuncionario(string matricula){
 
-     cout << "\n##########    Calculando Salário do Funcionário    ##########" <<endl;
+     cout << "\n##########    Calculando Salário do Funcionário    ##########\n\n";
     int count = 0;
     for (auto asg : asgs){
         if (asg.getMatricula() == matricula){
