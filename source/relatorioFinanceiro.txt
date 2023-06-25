@@ -4,27 +4,26 @@ Cargo: ASG
 Pedro de Araujo - R$ 1293.6
 Jorge Linhares - R$ 1586
 Antonio Augusto de Souza Filho - R$ 1347.4
-Pedro de Araujo - R$ 1293.6
-Total ASG: 5520.6
+Total ASG: 4227
 
 Luiz de Souza - R$ 1750
 Alexandra Gonçalve Dias - R$ 1517.5
 Guilherme Borba Dias - R$ 1875
 Paulo Herculano de Souza - R$ 1750
-Total Vendedor: 6892.55
+Total Vendedor: 6892.5
 
 Gustavo Luiz de Souza - R$ 3100
 Total Gerente: 3100
 
-CUSTO TOTAL: 15513.1
+CUSTO TOTAL: 14219.5
 
 FATURAMENTO MENSAL: 156290
 
-Custo ASG(%): 35.5866%
-Custo Vendedor(%): 44.4304%
-Custo Gerente(%): 19.983%
+Custo ASG(%): 29.7268%
+Custo Vendedor(%): 48.4722%
+Custo Gerente(%): 21.801%
 
-LUCRO DA EMPRESA: 140777
+LUCRO DA EMPRESA: 142070
 
 SITUAÇÃO: Lucro 
 

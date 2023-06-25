@@ -1,3 +1,14 @@
 ##############################
     Relatorio Demissional
 ##############################
+Cargo: Auxiliar de Serviços Gerais
+Nome: Jorge Linhares
+CPF: 148.879.265-70
+Matricula: 72.102-0
+Data de Ingresso: 5/7/2005
+Data de Demissão: 10/8/2020
+******************************
+Valor de rescisao: R$19926.6
+******************************
+Tempo de Trabalho: 14 anos, 12 meses e 35 dias
+
