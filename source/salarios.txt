@@ -4,14 +4,14 @@ Cargo: Asg
 Salario: 1293.6
 #########################################################
 #########################################################
-Nome: Jorge Linhares
-Cargo: Asg
-Salario: 1586
-#########################################################
-#########################################################
 Nome: Antonio Augusto de Souza Filho
 Cargo: Asg
 Salario: 1347.4
+#########################################################
+#########################################################
+Nome: Pedro de Araujo
+Cargo: Asg
+Salario: 1293.6
 #########################################################
 #########################################################
 Nome: Luiz de Souza
@@ -39,8 +39,8 @@ Cargo: Gerente
 Salario: 3100
 #########################################################
 #########################################################
-Salario total dos Asgs: 4227
-Salario total dos Vendedores 6892.5
+Salario total dos Asgs: 3934.6
+Salario total dos Vendedores 6892.55
 Salario total dos Gerentes 3100
-Salario total de todos os funcionarios 14219.5
+Salario total de todos os funcionarios 13927.1
 #########################################################

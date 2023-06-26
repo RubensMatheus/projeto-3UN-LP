@@ -42,9 +42,10 @@ float Vendedor::calcularSalario() {
 }
 
 float Vendedor::calcularRecisao(Data desligamento) {
-    float anosTt = (desligamento.ano - getIngressoEmpresa().ano) * 365;
-    anosTt += (desligamento.mes - getIngressoEmpresa().mes) * 30;
-    anosTt += (desligamento.dia - getIngressoEmpresa().dia);
-    anosTt = anosTt / 365;
-    return anosTt * stof(getSalario());
+    float anos = (desligamento.ano - 1) - getIngressoEmpresa().ano; 
+    float meses = (desligamento.mes + 11) - getIngressoEmpresa().mes;
+    float dias = (desligamento.dia + 30) - getIngressoEmpresa().dia;
+    float totalAnos = anos + (meses / 12) + (dias / 365);
+    float valorRecisao = totalAnos * stof(getSalario());
+    return valorRecisao;
 }
