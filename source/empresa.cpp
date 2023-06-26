@@ -720,6 +720,9 @@ void Empresa::calculaTodoOsSalarios() {
     relatorio << "Total ASG: " << salariosAsgs << endl << endl;
     cout << "Total ASG: " << salariosAsgs << endl << endl;
 
+    relatorio << "Cargo: Vendedor" << endl;
+    cout << "Cargo: Vendedor" << endl;
+
     for (auto vendedor : vendedores){
         relatorio << vendedor.getNome() << " - R$ " << vendedor.calcularSalario() << endl;
         cout << vendedor.getNome() << " - R$ " << vendedor.calcularSalario() << endl;
@@ -727,6 +730,9 @@ void Empresa::calculaTodoOsSalarios() {
 
     relatorio << "Total Vendedor: " << salariosVendedores  << endl << endl;
     cout << "Total Vendedor: " << salariosVendedores << endl << endl;
+
+    relatorio << "Cargo: Gerente" << endl;
+    cout << "Cargo: Gerente" << endl;
 
     for (auto gerente : gerentes){
         relatorio << gerente.getNome() << " - R$ " << gerente.calcularSalario() << endl;
@@ -919,9 +925,9 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
     fstream relatorio;
     relatorio.open("relatorioDemissional.txt", ios::out );
 
-    bool asgContratado = false;
-    bool vendedorContratado = false;
-    bool gerenteContratado = false;
+    bool asgDemitido = false;
+    bool vendedorDemitido = false;
+    bool gerenteDemitido = false;
 
     // Insere cabeçalho no relatorio
     relatorio << "##############################\n"
@@ -952,7 +958,7 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
                       << "Tempo de Trabalho: " << anos << " anos, " << meses << " meses e " << dias <<  " dias\n\n";
 
             it = asgs.erase(it);
-            asgContratado = true;
+            asgDemitido = true;
 
         }  else 
             ++it;
@@ -984,7 +990,7 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
 
             it2 = vendedores.erase(it2);
 
-            vendedorContratado = true;
+            vendedorDemitido = true;
         }  else 
             ++it2;
         
@@ -1016,7 +1022,7 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
 
             it3 = gerentes.erase(it3);
 
-            gerenteContratado = true;
+            gerenteDemitido = true;
 
         } else 
             ++it3;    
@@ -1027,7 +1033,7 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
 
 
     // Verifica se os dados foram salvos corretamente no arquivo relatorioDemissional
-    if (!(asgContratado || vendedorContratado || gerenteContratado)) {
+    if (!(asgDemitido || vendedorDemitido || gerenteDemitido)) {
         cout << "##############################\n";
         cout << "    Relatorio Demissional\n";
         cout << "##############################\n";
@@ -1054,11 +1060,11 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento) {
         }
     
         // Atualiza os arquivos de input
-        if(asgContratado)
+        if(asgDemitido)
             atualizaAsgs();
-        if(gerenteContratado)
+        if(gerenteDemitido)
             atualizaGerente();
-        if(vendedorContratado)
+        if(vendedorDemitido)
             atualizaVendedor();
     }
 }
